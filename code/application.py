@@ -208,7 +208,6 @@ if __name__ == "__main__":
                         print("1: View Nearby Retail Stores ")
                         print("2: View Nearby Hospitals ")
                         print("3: View Nearby Projects")
-                        print("4:  ")
                         print("Enter z to move to Main Menu")
 
 

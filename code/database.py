@@ -49,9 +49,15 @@ class DatabaseProjectStores():
             result = cursor.fetchall()
             for r in result:
                 x=r[0]
+
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, "project",dt ,"Select"))
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, "project",y,dt,"Select"))
             self.conn.commit()
             return
 
@@ -94,8 +100,13 @@ class DatabaseProjectStores():
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, "project",dt ,"Select"))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, "project",y,dt ,"Select"))
             self.conn.commit()
             return
 
@@ -137,8 +148,13 @@ class DatabaseProjectStores():
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, "project",dt,"Select" ))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, "project",y,dt,"Select" ))
             self.conn.commit()
             return
 
@@ -186,8 +202,13 @@ class DatabaseProjectStores():
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, "project",dt,"Select" ))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, "project",y,dt,"Select" ))
             self.conn.commit()
             return
 
@@ -212,7 +233,7 @@ class DatabaseProjectStores():
 
             query = sql.SQL("""select distinct r.store_name,r.street_address,p.project_name,h.facility_name,
             r.zip_code  from  retail_store r inner join project p on p.postcode=r.zip_code inner join hospital h 
-            on h.postcode=p.postcode """)
+            on h.postcode=p.postcode limit 20""")
 
             
             cursor.execute(query)
@@ -235,10 +256,15 @@ class DatabaseProjectStores():
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, "retail_store",dt ,"Select"))
-            cursor.execute(query1, (x, "project",dt ,"Select"))
-            cursor.execute(query1, (x, "hospital",dt,"Select" ))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, "retail_store",y,dt ,"Select"))
+            cursor.execute(query1, (x, "project",y,dt ,"Select"))
+            cursor.execute(query1, (x, "hospital",y,dt,"Select" ))
             self.conn.commit()
 
         except Exception as e:
@@ -294,8 +320,13 @@ borough,latitude,longitude,zip_code  from retail_store"""
             result = cursor.fetchall()
             for r in result:
                 x=r[0]
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, "retail_store",dt,"Select" ))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, "retail_store",y,dt,"Select" ))
             self.conn.commit()
 
         except Exception as e:
@@ -351,8 +382,13 @@ location_1,latitude,longitude,postcode  from hospital"""
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, "hospital",dt,"Select" ))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, "hospital",y,dt,"Select" ))
             self.conn.commit()
 
         except Exception as e:
@@ -406,9 +442,14 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
 
-            cursor.execute(query1, (x, "project",dt ,"Select"))
+            cursor.execute(query1, (x, "project",y,dt ,"Select"))
 
             self.conn.commit()
 
@@ -427,7 +468,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
     def search_school(self):
         try:    
 
-            pin = input("Enter your pincode \t")
+            pin = input("Enter the pincode (Example: 10011)\t")
             
             client = MongoClient("mongodb://localhost:27017/")
             projectDB = client["project"]
@@ -442,12 +483,30 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
                 print(" School Name : ",
                       x["school"], " School Address: ", x["address"])
 
+
+
         except Exception as e:
             print("This is the Error")
 
             print(str(e))
             print("Contact Admin for resolution")
             return
+
+        cursor = self.conn.cursor(
+            cursor_factory=psycopg2.extras.DictCursor)
+        us = sql.SQL("""select current_user """)
+        cursor.execute(us)
+        result = cursor.fetchall()
+        for r in result:
+            x=r[0]
+        #print(x)
+        # db = sql.SQL("""SELECT current_database() """)
+        # cursor.execute(db)
+        # result = cursor.fetchall()
+        # for r in result:
+        #     y=r[0]
+        query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+        cursor.execute(query1, (x, "NA(Non-Relational)","school",dt ,"Select"))
 
 
 
@@ -532,8 +591,13 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, table_name,dt ,"Select"))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, table_name,y,dt ,"Select"))
             self.conn.commit()
         except Exception as e:
             print("This is the Error")
@@ -567,8 +631,13 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, table_name,dt,"Select" ))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, table_name,y,dt,"Select" ))
             self.conn.commit()
         except Exception as e:
             print("This is the Error")
@@ -589,7 +658,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             zip_code = input("Enter  zip_code (5 digits) \t")
             bbl= input("Enter  bbl (10 digits) \t")
             latitude = input("Enter  latitude \t")
-            longitude = input("Enter longitude \t")
+            longitude = input("Enter longitude \t \n")
 
             cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
             n=0
@@ -614,8 +683,13 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
                 for r in result:
                     x=r[0]
                 #print(x)
-                query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-                cursor.execute(query1, (x, "retail_store",dt,"Insert" ))
+                db = sql.SQL("""SELECT current_database() """)
+                cursor.execute(db)
+                result = cursor.fetchall()
+                for r in result:
+                    y=r[0]
+                query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+                cursor.execute(query1, (x, "retail_store",y,dt,"Insert" ))
                 self.conn.commit()
             else:
                 print("There is some problem with the entered values")
@@ -663,10 +737,15 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, "retail_store",dt ,"Select"))
-            cursor.execute(query1, (x, "project",dt ,"Select"))
-            cursor.execute(query1, (x, "hospital",dt,"Select" ))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, "retail_store",y,dt ,"Select"))
+            cursor.execute(query1, (x, "project",y,dt ,"Select"))
+            cursor.execute(query1, (x, "hospital",y,dt,"Select" ))
             self.conn.commit()
 
 
@@ -708,9 +787,14 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             for r in result:
                 x=r[0]
             #print(x)
-            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,stamp,operation) VALUES (%s, %s, %s,%s) """)
-            cursor.execute(query1, (x, "building_address",dt ,"Select"))
-            cursor.execute(query1, (x, "hospital",dt,"Select" ))
+            db = sql.SQL("""SELECT current_database() """)
+            cursor.execute(db)
+            result = cursor.fetchall()
+            for r in result:
+                y=r[0]
+            query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            cursor.execute(query1, (x, "building_address",y,dt ,"Select"))
+            cursor.execute(query1, (x, "hospital",y,dt,"Select" ))
             self.conn.commit()
 
         except Exception as e:

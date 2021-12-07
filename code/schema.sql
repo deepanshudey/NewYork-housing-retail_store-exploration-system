@@ -118,8 +118,8 @@ CREATE TABLE users
 (
 userid VARCHAR(16),
 passw VARCHAR(100),
-mail VARCHAR(100)
-
+mail VARCHAR(100),
+PRIMARY KEY (userid)
 );
 
 drop table  if exists  user_logs;
@@ -127,6 +127,7 @@ CREATE TABLE user_logs
 (
 userid VARCHAR(16),
 table_name VARCHAR(30),
+db VARCHAR(100),
 stamp timestamp,
 operation VARCHAR(50)
 );
@@ -584,3 +585,7 @@ create trigger hospital_audit_trigger
                   execute procedure hospital_audit_information();
 
 
+
+-- #####################################################
+
+INSERT INTO users (userid, passw,mail) VALUES ('admin', 'admin', 'adminstrator@rpi.edu')

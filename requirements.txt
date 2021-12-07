@@ -1,7 +1,7 @@
 wget
 pandas
 #csv
-json
+#json
 psycopg2-binary
 sqlalchemy
 pymongo
