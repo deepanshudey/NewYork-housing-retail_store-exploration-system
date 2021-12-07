@@ -1,0 +1,4 @@
+https://data.cityofnewyork.us/resource/hg8x-zxpr.csv
+https://data.cityofnewyork.us/resource/ud4g-9x9z.csv
+https://data.cityofnewyork.us/resource/f7b6-v6v3.csv
+https://data.cityofnewyork.us/resource/cr93-x2xf.json
