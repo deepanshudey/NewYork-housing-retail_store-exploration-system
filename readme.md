@@ -1,7 +1,7 @@
 #
 The datasets like housing, retail stores, etc. present in NYC are collected to create an effective database. An application is created that helps users to search for list of hospitals, retail stores, and housing nearest to them or at a particular pincode. A non-relational database containing list of schools is also created using the MongoDB.
 
-GitHub Repository - 
+GitHub Repository - https://github.com/deepanshudey/NewYork-housing-retail_store-exploration-system
 
 ## Data
 
@@ -46,7 +46,7 @@ Run command -- 'pip3 install -r requirements.txt' to install the dependencies/li
 
 ## Loading Data
 
-The data can be loaded by:
+The data can be loaded by (Use python3):
  
 1. Run `code/retrieve_data.py` to make API call and download the required datasets.
 
