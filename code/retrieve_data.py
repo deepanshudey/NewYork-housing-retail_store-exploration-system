@@ -2,14 +2,14 @@ import wget
 from os import mkdir
 from shutil import rmtree
 
-with open('data/dataset.txt') as datasets_file:
+with open('code/dataset.txt') as datasets_file:
     urls = datasets_file.readlines()
 
     # if len(urls) > 5:
     #     raise Exception("Too many datasets were specified")
 
-    #rmtree('dataset', ignore_errors=True)
-    #mkdir('dataset')
+    rmtree('data', ignore_errors=True)
+    mkdir('data')
 
     for u in urls:
         f = wget.download(u.rstrip(), 'data/')
