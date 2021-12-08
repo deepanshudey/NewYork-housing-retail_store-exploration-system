@@ -21,8 +21,7 @@ class DatabaseProjectStores():
 
     def search_projects_zipcode(self):
         zip = input("Enter zip code (Example: 10030) \t")
-        if(len(zip)!=5):
-            raise Exception("Pincode must be 5 digits")
+
 
         try:
             query = sql.SQL("""select project_id ,
@@ -31,7 +30,8 @@ class DatabaseProjectStores():
     project_completion_date,
     postcode,bbl  from project  where postcode= {zip}""").format(zip=sql.Literal(zip))
            
-
+            if(len(zip)!=5):
+                raise Exception("Pincode must be 5 digits")
             cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         # print(cursor.mogrify(query, params))
             # print(cursor.mogrify(query, params))
@@ -514,10 +514,17 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             results = project_collection.find({"postcode": pin})
             if results==[]:
                 print("No schools found at this pincode")
-            for x in results:
-                print("\n")
-                print(" School Name : ",
-                      x["school"], " School Address: ", x["address"])
+            # for x in results:
+            #     print("\n")
+            #     print(" School Name : ",
+            #           x["school"], " School Address: ", x["address"])
+
+            else:
+                table= PrettyTable()
+                table.field_names = ["School Name", "School Address","Borough","Postcode"]
+                for x in results:
+                    table.add_row([x["school"],x["address"],x["borough"],x["postcode"]])
+                print(table)
 
 
 

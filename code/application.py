@@ -17,8 +17,9 @@ if __name__ == "__main__":
 
         print("1: To Login ")
         print("2: To Register ")
-        print("z: To Exit ")
+        print("z: To Exit \n")
         login = input()
+        print("\n")
         if(login == 'z'):
             print("Thank you.  Exited!!!!")
             break
@@ -67,12 +68,13 @@ if __name__ == "__main__":
 
 
         elif(login == "1"):
-            print("\n ")
+            print("\n")
             
 
             ex=0
             user = input("Enter your username \t")
             pas= input("Enter your password \t")
+            print("\n")
             try:
                 connection_string = "dbname=%s user=%s password=%s host=%s port=%s" % ('project',user,pas,'127.0.0.1','5433')
                 conn = psycopg2.connect(connection_string)
@@ -137,7 +139,7 @@ if __name__ == "__main__":
                 print("b: To Display buildings, retail store & hospitals by pincode ")
                 print("c: Find retail store or Hospitals or Projects Near you")
                 print("d: Search schools by pincode (Non-relational Database)")
-                print("e: Display Table ")
+                print("e: Display all contents of a Table ")
                 print("f: Insert Data in Retail Store ")
                 print("g: View Number of Hospitals, Retail Store and Projects at a Pincode")
                 print("h: Group Hospital & Housing Projects by Borough ")
@@ -261,6 +263,11 @@ if __name__ == "__main__":
                     obj.display_user_logs()
                 else:
                     print("Nothing Matches, Enter Again")
+
+
+
+        else:
+            print("Nothing Matches, Enter Again")
 
             
 
