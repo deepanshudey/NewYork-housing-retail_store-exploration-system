@@ -505,7 +505,8 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
         try:    
 
             pin = input("Enter the pincode (Example: 10011)\t")
-            
+            if(len(pin)!=5):
+                raise Exception("Incorrect Pincode")
             client = MongoClient("mongodb://localhost:27017/")
             projectDB = client["project"]
             project_collection = projectDB["project"]
