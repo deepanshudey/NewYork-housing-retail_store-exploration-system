@@ -139,9 +139,10 @@ if __name__ == "__main__":
                 print("d: Search schools by pincode (Non-relational Database)")
                 print("e: Display Table ")
                 print("f: Insert Data in Retail Store ")
-                print("g: View Number of Hospitals, Retail Store and Projects at Pincodes")
+                print("g: View Number of Hospitals, Retail Store and Projects at a Pincode")
                 print("h: Group Hospital & Housing Projects by Borough ")
                 print("i: View Audit tables (Admin only) ")
+                print("j: View User Logs (Admin only) ")
 
                 print("\n ")
                 print("Enter z to Exit")
@@ -256,6 +257,8 @@ if __name__ == "__main__":
                     print("Table Names -:  project_audit, house_description_audit, retail_store_audit, hospital_audit, building_address_audit, house_affordability_audit")
                     obj.display_audit()
 
+                elif(ans == "j"):
+                    obj.display_user_logs()
                 else:
                     print("Nothing Matches, Enter Again")
 

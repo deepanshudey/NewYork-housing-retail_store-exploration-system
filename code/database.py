@@ -606,6 +606,48 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             print("Contact Admin for resolution")
             return
 
+
+
+    def display_user_logs(self):
+        try:    
+
+            print("\n")
+            cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+            query = sql.SQL("""select * from user_logs order by stamp desc limit 10""")
+
+            
+            cursor.execute(query)
+            result = cursor.fetchall()
+
+            x= [i[0] for i in cursor.description]
+            #print(x)
+            table= PrettyTable()
+            table.field_names = x
+            for row in result:
+                table.add_row(row)
+            print(table)
+
+            # us = sql.SQL("""select current_user """)
+            # cursor.execute(us)
+            # result = cursor.fetchall()
+            # for r in result:
+            #     x=r[0]
+            # #print(x)
+            # db = sql.SQL("""SELECT current_database() """)
+            # cursor.execute(db)
+            # result = cursor.fetchall()
+            # for r in result:
+            #     y=r[0]
+            # query1 = sql.SQL("""INSERT INTO user_logs (userid, table_name,db,stamp,operation) VALUES (%s, %s, %s,%s,%s) """)
+            # cursor.execute(query1, (x, table_name,y,dt,"Select" ))
+            # self.conn.commit()
+        except Exception as e:
+            print("This is the Error")
+
+            print(str(e))
+            print("Contact Admin for resolution")
+            return   
+
     def display_audit(self):
         try:    
 
@@ -717,7 +759,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             (select zip_code from retail_store where zip_code in
             (
             select postcode from project group by postcode having count(*) > 1
-            ))""")
+            )) order by count(*) desc""")
 
             
             cursor.execute(query)
