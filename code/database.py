@@ -21,6 +21,9 @@ class DatabaseProjectStores():
 
     def search_projects_zipcode(self):
         zip = input("Enter zip code (Example: 10030) \t")
+        if(len(zip)!=5):
+            raise Exception("Pincode must be 5 digits")
+
         try:
             query = sql.SQL("""select project_id ,
     project_name,
@@ -62,6 +65,7 @@ class DatabaseProjectStores():
             return
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")
@@ -111,6 +115,7 @@ class DatabaseProjectStores():
             return
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")
@@ -159,6 +164,7 @@ class DatabaseProjectStores():
             return
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")
@@ -175,6 +181,12 @@ class DatabaseProjectStores():
     project_start_date,
     project_completion_date,
     postcode,bbl from project where project_start_date>= {x}""").format(x=sql.Literal(x))
+
+            import datetime
+            try:
+                datetime.datetime.strptime(x, '%Y-%m-%d')
+            except ValueError:
+                raise ValueError("Incorrect data format, should be YYYY-MM-DD")
            
 
             cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -213,6 +225,7 @@ class DatabaseProjectStores():
             return
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")
@@ -268,6 +281,7 @@ class DatabaseProjectStores():
             self.conn.commit()
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")
@@ -286,6 +300,12 @@ borough,latitude,longitude,zip_code  from retail_store"""
             p = input("Enter your pincode: (Example: 10010) \t")
             #lon = input("Enter your Longitude: (Example: -73.95) \t")
             km = float(input("Enter Desired KM range (Example: 50)\t"))
+
+            if(len(p)!=5):
+                raise Exception("Incorrect Pincode")
+
+            if(km<0):
+                raise Exception("Invalid Distance")
             cursor.execute(query)
             result = cursor.fetchall()
             search = SearchEngine(simple_zipcode=True)
@@ -330,6 +350,7 @@ borough,latitude,longitude,zip_code  from retail_store"""
             self.conn.commit()
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")
@@ -348,6 +369,12 @@ location_1,latitude,longitude,postcode  from hospital"""
             p = input("Enter your pincode: (Example: 10010) \t")
             #lon = input("Enter your Longitude: (Example: -73.95) \t")
             km = float(input("Enter Desired KM range (Example: 50)\t"))
+
+            if(len(p)!=5):
+                raise Exception("Incorrect Pincode")
+
+            if(km<0):
+                raise Exception("Invalid Distance")
             cursor.execute(query)
             result = cursor.fetchall()
             search = SearchEngine(simple_zipcode=True)
@@ -392,6 +419,7 @@ location_1,latitude,longitude,postcode  from hospital"""
             self.conn.commit()
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")
@@ -408,6 +436,13 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             p = input("Enter your pincode: (Example: 10010) \t")
             #lon = input("Enter your Longitude: (Example: -73.95) \t")
             km = float(input("Enter Desired KM range (Example: 50)\t"))
+
+            if(len(p)!=5):
+                raise Exception("Incorrect Pincode")
+
+            if(km<0):
+                raise Exception("Invalid Distance")
+
             cursor.execute(query)
             result = cursor.fetchall()
             search = SearchEngine(simple_zipcode=True)
@@ -454,6 +489,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             self.conn.commit()
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")
@@ -486,6 +522,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
 
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
 
             print(str(e))
@@ -558,6 +595,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
                 # print(table)
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
 
             print(str(e))
@@ -600,6 +638,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             cursor.execute(query1, (x, table_name,y,dt ,"Select"))
             self.conn.commit()
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
 
             print(str(e))
@@ -642,6 +681,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             # cursor.execute(query1, (x, table_name,y,dt,"Select" ))
             # self.conn.commit()
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
 
             print(str(e))
@@ -682,6 +722,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             cursor.execute(query1, (x, table_name,y,dt,"Select" ))
             self.conn.commit()
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
 
             print(str(e))
@@ -701,6 +742,10 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             bbl= input("Enter  bbl (10 digits) \t")
             latitude = input("Enter  latitude \t")
             longitude = input("Enter longitude \t \n")
+
+            if(len(bbl)!=10):
+                raise Exception("bbl should 10 digits")
+
 
             cursor = self.conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
             n=0
@@ -759,7 +804,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             (select zip_code from retail_store where zip_code in
             (
             select postcode from project group by postcode having count(*) > 1
-            )) order by count(*) desc""")
+            )) order by count(*) descz""")
 
             
             cursor.execute(query)
@@ -792,6 +837,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
 
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")
@@ -840,6 +886,7 @@ p.project_start_date,p.project_completion_date,b.latitude,b.longitude,p.postcode
             self.conn.commit()
 
         except Exception as e:
+            self.conn.rollback()
             print("This is the Error")
             print(str(e))
             print("Contact Admin for resolution")

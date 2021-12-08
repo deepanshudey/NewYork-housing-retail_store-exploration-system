@@ -10,7 +10,7 @@ CREATE TABLE project
     project_start_date Date,
     project_completion_date Date,
     postcode INTEGER CHECK (postcode > 9999 AND postcode <=99999),
-    bbl BIGINT
+    bbl BIGINT 
 );
 
 
@@ -78,7 +78,7 @@ CREATE TABLE retail_store
     street_address VARCHAR(128),
     borough VARCHAR(20),
     zip_code INTEGER CHECK (zip_code > 9999 AND zip_code <= 99999) ,
-    bbl BIGINT,
+    bbl BIGINT ,
     latitude DECIMAL,
     longitude DECIMAL
 

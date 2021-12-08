@@ -45,10 +45,16 @@ Run command -- 'pip3 install -r requirements.txt' to install the dependencies/li
    This creates database project and the user "Admin" who is the owner/administrator of the database. Then the required priveleges are  granted to the owner.
 
 ## Loading Data
+All the files should be present inside the 'code' folder. 
+
+'dataset.txt' contains the api links and should also be present inside the 'code' folder.
+
+
+
 
 The data can be loaded by (Use python3):
  
-1. Run `code/retrieve_data.py` to make API call and download the required datasets.
+1. Run `code/retrieve_data.py` to make API call and download the required datasets. The data folder will be generated automatically and data will be also downloaded in this folder.
 
 2. Run `code/load_data.py` to load the dataset. Following files will run automatically:
     
